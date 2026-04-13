@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
 import useDailyReset from '../hooks/useDailyReset';
+import { IconDropletSmall, IconCheckCircle } from './Icons';
 
 const GOAL = 3000;
 
@@ -38,7 +39,7 @@ function WaterTracker() {
               key={i}
               className={`water-glass ${i < glasses ? 'filled' : ''}`}
             >
-              💧
+              <IconDropletSmall size={22} strokeWidth={i < glasses ? 1.8 : 1.2} />
             </span>
           ))}
         </div>
@@ -61,7 +62,9 @@ function WaterTracker() {
 
       {progress >= 100 && (
         <div className="card success-card">
-          <span className="success-emoji">🎉</span>
+          <span className="success-emoji">
+            <IconCheckCircle size={22} stroke="#34c759" />
+          </span>
           <span>Splněno! Denní cíl dosažen.</span>
         </div>
       )}

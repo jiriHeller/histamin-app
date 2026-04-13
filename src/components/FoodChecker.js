@@ -1,16 +1,53 @@
 import React, { useState, useCallback, useRef } from 'react';
 import foods from '../data/foods';
+import {
+  IconCheckCircle,
+  IconAlertCircle,
+  IconXCircle,
+  IconCamera,
+  IconCpu,
+  IconChefHat,
+  IconClock,
+  IconLightbulb,
+} from './Icons';
 
 const statusConfig = {
-  safe: { label: 'Bezpečné', emoji: '✅', color: '#34c759', bg: '#dcf8e8' },
-  caution: { label: 'Opatrně', emoji: '⚠️', color: '#ff9500', bg: '#fff3e0' },
-  unsafe: { label: 'Nevhodné', emoji: '❌', color: '#ff3b30', bg: '#ffe5e5' },
+  safe: {
+    label: 'Bezpečné',
+    Icon: IconCheckCircle,
+    color: '#34c759',
+    bg: '#dcf8e8',
+  },
+  caution: {
+    label: 'Opatrně',
+    Icon: IconAlertCircle,
+    color: '#ff9500',
+    bg: '#fff3e0',
+  },
+  unsafe: {
+    label: 'Nevhodné',
+    Icon: IconXCircle,
+    color: '#ff3b30',
+    bg: '#ffe5e5',
+  },
 };
 
 const photoBadgeConfig = {
   ok: { label: 'OK', color: '#34c759', bg: '#dcf8e8' },
   pozor: { label: 'Pozor', color: '#ff9500', bg: '#fff3e0' },
   ne: { label: 'Ne', color: '#ff3b30', bg: '#ffe5e5' },
+};
+
+const photoCategoryIcons = {
+  ok: IconCheckCircle,
+  pozor: IconAlertCircle,
+  ne: IconXCircle,
+};
+
+const photoCategoryLabels = {
+  ok: 'Bezpečné',
+  pozor: 'Opatrně',
+  ne: 'Nevhodné',
 };
 
 function resizeImage(file, maxSize) {
@@ -146,6 +183,7 @@ function FoodChecker() {
     const { base64, dataUrl } = await resizeImage(file, 1024);
     setPhotoPreview(dataUrl);
     setPhotoResult(null);
+    setRecipe(null);
 
     const apiKey = process.env.REACT_APP_CLAUDE_API_KEY;
     if (!apiKey) {
@@ -212,7 +250,6 @@ Odpověz česky.`,
     }
     setPhotoLoading(false);
 
-    // Reset file input so the same file can be selected again
     if (fileInputRef.current) fileInputRef.current.value = '';
   }, []);
 
@@ -294,39 +331,44 @@ Odpověz česky.`,
       </div>
 
       {/* Text result */}
-      {result && (
-        <div
-          className="card food-result"
-          style={{ backgroundColor: statusConfig[result.status]?.bg }}
-        >
-          <div className="food-result-header">
-            <span className="food-result-emoji">
-              {statusConfig[result.status]?.emoji}
-            </span>
-            <div>
-              <div className="food-result-name">{result.name}</div>
-              <div
-                className="food-result-status"
-                style={{ color: statusConfig[result.status]?.color }}
-              >
-                {statusConfig[result.status]?.label}
+      {result && (() => {
+        const cfg = statusConfig[result.status];
+        const StatusIcon = cfg?.Icon;
+        return (
+          <div
+            className="card food-result"
+            style={{ backgroundColor: cfg?.bg }}
+          >
+            <div className="food-result-header">
+              <span className="food-result-icon">
+                {StatusIcon && <StatusIcon size={36} stroke={cfg.color} strokeWidth={1.5} />}
+              </span>
+              <div>
+                <div className="food-result-name">{result.name}</div>
+                <div className="food-result-status" style={{ color: cfg?.color }}>
+                  {cfg?.label}
+                </div>
               </div>
             </div>
+            <p className="food-result-note">{result.note}</p>
+            {result.ai && (
+              <div className="food-ai-badge">
+                <IconCpu size={14} stroke="#8e8e93" /> Odpověď od AI
+              </div>
+            )}
+            <button className="btn btn-text" onClick={clear}>
+              Nové hledání
+            </button>
           </div>
-          <p className="food-result-note">{result.note}</p>
-          {result.ai && (
-            <div className="food-ai-badge">🤖 Odpověď od AI</div>
-          )}
-          <button className="btn btn-text" onClick={clear}>
-            Nové hledání
-          </button>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Photo analysis */}
       <div className="card photo-section">
         <div className="photo-section-header">
-          <span className="photo-section-icon">📸</span>
+          <span className="photo-section-icon">
+            <IconCamera size={28} stroke="#007aff" />
+          </span>
           <div>
             <div className="photo-section-title">Analýza fotky jídla</div>
             <div className="photo-section-desc">
@@ -348,7 +390,7 @@ Odpověz česky.`,
           onClick={() => fileInputRef.current?.click()}
           disabled={photoLoading}
         >
-          📷 Vybrat fotku
+          <IconCamera size={18} /> Vybrat fotku
         </button>
 
         {photoPreview && (
@@ -370,12 +412,12 @@ Odpověz česky.`,
               const items = photoResult[category];
               if (!items || items.length === 0) return null;
               const cfg = photoBadgeConfig[category];
+              const CatIcon = photoCategoryIcons[category];
               return (
                 <div key={category} className="photo-category">
                   <div className="photo-category-label" style={{ color: cfg.color }}>
-                    {category === 'ok' && '✅ Bezpečné'}
-                    {category === 'pozor' && '⚠️ Opatrně'}
-                    {category === 'ne' && '❌ Nevhodné'}
+                    <CatIcon size={16} stroke={cfg.color} strokeWidth={2} />
+                    {' '}{photoCategoryLabels[category]}
                   </div>
                   <div className="photo-badges">
                     {items.map((item, i) => (
@@ -398,7 +440,9 @@ Odpověz česky.`,
 
             {photoResult.zhodnoceni && (
               <div className="photo-assessment">
-                <span className="photo-assessment-icon">🤖</span>
+                <span className="photo-assessment-icon">
+                  <IconCpu size={18} stroke="#8e8e93" />
+                </span>
                 <p>{photoResult.zhodnoceni}</p>
               </div>
             )}
@@ -415,7 +459,10 @@ Odpověz česky.`,
                     Generuji recept...
                   </>
                 ) : (
-                  '🍳 Navrhnout recept z bezpečných surovin'
+                  <>
+                    <IconChefHat size={20} stroke="white" />
+                    {' '}Navrhnout recept z bezpečných surovin
+                  </>
                 )}
               </button>
             )}
@@ -423,11 +470,15 @@ Odpověz česky.`,
             {recipe && (
               <div className="recipe-card">
                 <div className="recipe-header">
-                  <span className="recipe-icon">🍳</span>
+                  <span className="recipe-icon">
+                    <IconChefHat size={28} stroke="#34c759" />
+                  </span>
                   <div>
                     <div className="recipe-title">{recipe.nazev}</div>
                     {recipe.cas && (
-                      <div className="recipe-time">⏱ {recipe.cas}</div>
+                      <div className="recipe-time">
+                        <IconClock size={13} stroke="#8e8e93" /> {recipe.cas}
+                      </div>
                     )}
                   </div>
                 </div>
@@ -452,7 +503,8 @@ Odpověz česky.`,
 
                 {recipe.tip && (
                   <div className="recipe-tip">
-                    <span>💡</span> {recipe.tip}
+                    <IconLightbulb size={16} stroke="#ff9500" />
+                    <span>{recipe.tip}</span>
                   </div>
                 )}
               </div>
@@ -473,13 +525,13 @@ Odpověz česky.`,
       <div className="card food-legend">
         <h3>Legenda</h3>
         <div className="legend-item">
-          <span>✅</span> Bezpečné — můžete jíst bez obav
+          <IconCheckCircle size={16} stroke="#34c759" /> Bezpečné — můžete jíst bez obav
         </div>
         <div className="legend-item">
-          <span>⚠️</span> Opatrně — záleží na toleranci, zkuste malé množství
+          <IconAlertCircle size={16} stroke="#ff9500" /> Opatrně — záleží na toleranci, zkuste malé množství
         </div>
         <div className="legend-item">
-          <span>❌</span> Nevhodné — vyhněte se této potravině
+          <IconXCircle size={16} stroke="#ff3b30" /> Nevhodné — vyhněte se této potravině
         </div>
       </div>
     </div>

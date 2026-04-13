@@ -2,6 +2,38 @@ import React, { useState, useCallback } from 'react';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import symptoms from '../data/symptoms';
+import {
+  IconEye,
+  IconDizzy,
+  IconCircleDot,
+  IconScratch,
+  IconThermometer,
+  IconHeartPulse,
+  IconDroplets,
+  IconFrown,
+  IconWind,
+  IconArrowDown,
+  IconMoon,
+  IconAlertTriangle,
+  IconDropletOff,
+  IconCheckCircle,
+} from './Icons';
+
+const iconMap = {
+  eye: IconEye,
+  dizzy: IconDizzy,
+  circleDot: IconCircleDot,
+  scratch: IconScratch,
+  thermometer: IconThermometer,
+  heartPulse: IconHeartPulse,
+  droplets: IconDroplets,
+  frown: IconFrown,
+  wind: IconWind,
+  arrowDown: IconArrowDown,
+  moon: IconMoon,
+  alertTriangle: IconAlertTriangle,
+  dropletOff: IconDropletOff,
+};
 
 function SymptomLogger() {
   const [selected, setSelected] = useState({});
@@ -55,7 +87,9 @@ function SymptomLogger() {
 
       {saved && (
         <div className="card success-card">
-          <span className="success-emoji">✅</span>
+          <span className="success-emoji">
+            <IconCheckCircle size={20} stroke="#34c759" />
+          </span>
           <span>Symptomy uloženy</span>
         </div>
       )}
@@ -63,13 +97,22 @@ function SymptomLogger() {
       <div className="symptom-grid">
         {symptoms.map((symptom) => {
           const isSelected = selected[symptom.id] !== undefined;
+          const SymIcon = iconMap[symptom.icon];
           return (
             <div key={symptom.id} className="card symptom-card">
               <div
                 className={`symptom-toggle ${isSelected ? 'active' : ''}`}
                 onClick={() => toggleSymptom(symptom.id)}
               >
-                <span className="symptom-emoji">{symptom.emoji}</span>
+                <span className="symptom-icon-wrap">
+                  {SymIcon && (
+                    <SymIcon
+                      size={26}
+                      stroke={isSelected ? '#007aff' : '#8e8e93'}
+                      strokeWidth={isSelected ? 1.8 : 1.4}
+                    />
+                  )}
+                </span>
                 <span className="symptom-name">{symptom.name}</span>
               </div>
               {isSelected && (

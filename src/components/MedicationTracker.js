@@ -2,6 +2,27 @@ import React, { useCallback, useMemo } from 'react';
 import medications from '../data/medications';
 import useLocalStorage from '../hooks/useLocalStorage';
 import useDailyReset from '../hooks/useDailyReset';
+import {
+  IconCapsule,
+  IconTablet,
+  IconSun,
+  IconLeaf,
+  IconZap,
+  IconGem,
+  IconShield,
+  IconFish,
+} from './Icons';
+
+const iconMap = {
+  capsule: IconCapsule,
+  tablet: IconTablet,
+  sun: IconSun,
+  leaf: IconLeaf,
+  zap: IconZap,
+  gem: IconGem,
+  shield: IconShield,
+  fish: IconFish,
+};
 
 const initialState = {};
 
@@ -37,23 +58,29 @@ function MedicationTracker() {
       </div>
 
       <div className="card-list">
-        {medications.map((med) => (
-          <div
-            key={med.id}
-            className={`card med-item ${checked[med.id] ? 'med-done' : ''}`}
-            onClick={() => toggle(med.id)}
-          >
-            <div className="med-left">
-              <div className={`checkbox ${checked[med.id] ? 'checked' : ''}`}>
-                {checked[med.id] && '✓'}
-              </div>
-              <div>
-                <div className="med-name">{med.emoji} {med.name}</div>
-                <div className="med-time">{med.time}</div>
+        {medications.map((med) => {
+          const MedIcon = iconMap[med.icon];
+          return (
+            <div
+              key={med.id}
+              className={`card med-item ${checked[med.id] ? 'med-done' : ''}`}
+              onClick={() => toggle(med.id)}
+            >
+              <div className="med-left">
+                <div className={`checkbox ${checked[med.id] ? 'checked' : ''}`}>
+                  {checked[med.id] && '✓'}
+                </div>
+                <div className="med-icon-wrapper">
+                  {MedIcon && <MedIcon size={20} stroke="#8e8e93" />}
+                </div>
+                <div>
+                  <div className="med-name">{med.name}</div>
+                  <div className="med-time">{med.time}</div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

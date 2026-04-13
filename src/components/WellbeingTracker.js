@@ -9,13 +9,21 @@ import {
   Timestamp,
 } from 'firebase/firestore';
 import { db } from '../firebase';
+import {
+  IconSmile,
+  IconZap,
+  IconSparkles,
+  IconActivity,
+  IconBrain,
+  IconCheckCircle,
+} from './Icons';
 
 const categories = [
-  { id: 'celkovy', name: 'Celkový pocit', emoji: '😊' },
-  { id: 'energie', name: 'Energie', emoji: '⚡' },
-  { id: 'kuze', name: 'Stav kůže', emoji: '✨' },
-  { id: 'traveni', name: 'Trávení', emoji: '🫄' },
-  { id: 'hlava', name: 'Hlava a zrak', emoji: '🧠' },
+  { id: 'celkovy', name: 'Celkový pocit', Icon: IconSmile },
+  { id: 'energie', name: 'Energie', Icon: IconZap },
+  { id: 'kuze', name: 'Stav kůže', Icon: IconSparkles },
+  { id: 'traveni', name: 'Trávení', Icon: IconActivity },
+  { id: 'hlava', name: 'Hlava a zrak', Icon: IconBrain },
 ];
 
 function WellbeingTracker() {
@@ -74,7 +82,9 @@ function WellbeingTracker() {
 
       {saved && (
         <div className="card success-card">
-          <span className="success-emoji">✅</span>
+          <span className="success-emoji">
+            <IconCheckCircle size={20} stroke="#34c759" />
+          </span>
           <span>Záznam uložen</span>
         </div>
       )}
@@ -83,8 +93,9 @@ function WellbeingTracker() {
         {categories.map((cat) => (
           <div key={cat.id} className="wellbeing-item">
             <div className="wellbeing-header">
-              <span>
-                {cat.emoji} {cat.name}
+              <span className="wellbeing-label">
+                <cat.Icon size={18} stroke={getColor(values[cat.id])} />
+                {' '}{cat.name}
               </span>
               <span
                 className="wellbeing-value"
@@ -133,7 +144,8 @@ function WellbeingTracker() {
                 return (
                   <div key={cat.id} className="history-row">
                     <span className="history-label">
-                      {cat.emoji} {cat.name}
+                      <cat.Icon size={14} stroke="#8e8e93" />
+                      {' '}{cat.name}
                     </span>
                     <div className="history-bar-container">
                       <div

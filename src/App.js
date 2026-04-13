@@ -6,16 +6,25 @@ import FoodChecker from './components/FoodChecker';
 import WellbeingTracker from './components/WellbeingTracker';
 import TreatmentTimeline from './components/TreatmentTimeline';
 import EducationCards from './components/EducationCards';
+import {
+  IconPill,
+  IconDroplet,
+  IconGrid,
+  IconUtensils,
+  IconSmile,
+  IconCalendar,
+  IconBook,
+} from './components/Icons';
 import './App.css';
 
 const tabs = [
-  { id: 'meds', label: 'Léky', icon: '💊' },
-  { id: 'water', label: 'Voda', icon: '💧' },
-  { id: 'symptoms', label: 'Symptomy', icon: '📋' },
-  { id: 'food', label: 'Jídlo', icon: '🍽️' },
-  { id: 'wellbeing', label: 'Pocit', icon: '😊' },
-  { id: 'timeline', label: 'Plán', icon: '📅' },
-  { id: 'education', label: 'Info', icon: '📚' },
+  { id: 'meds', label: 'Léky', Icon: IconPill },
+  { id: 'water', label: 'Voda', Icon: IconDroplet },
+  { id: 'symptoms', label: 'Symptomy', Icon: IconGrid },
+  { id: 'food', label: 'Jídlo', Icon: IconUtensils },
+  { id: 'wellbeing', label: 'Pocit', Icon: IconSmile },
+  { id: 'timeline', label: 'Plán', Icon: IconCalendar },
+  { id: 'education', label: 'Info', Icon: IconBook },
 ];
 
 function App() {
@@ -53,7 +62,9 @@ function App() {
             className={`tab-item ${activeTab === tab.id ? 'active' : ''}`}
             onClick={() => setActiveTab(tab.id)}
           >
-            <span className="tab-icon">{tab.icon}</span>
+            <span className="tab-icon">
+              <tab.Icon size={22} strokeWidth={activeTab === tab.id ? 2 : 1.5} />
+            </span>
             <span className="tab-label">{tab.label}</span>
           </button>
         ))}

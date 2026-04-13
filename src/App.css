@@ -139,8 +139,15 @@ body {
 }
 
 .tab-icon {
-  font-size: 22px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  color: #8e8e93;
+}
+
+.tab-item.active .tab-icon {
+  color: #007aff;
 }
 
 .tab-label {
@@ -196,6 +203,13 @@ body {
   border-color: #34c759;
 }
 
+.med-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+}
+
 .med-name {
   font-size: 16px;
   font-weight: 500;
@@ -239,13 +253,13 @@ body {
 }
 
 .water-glass {
-  font-size: 24px;
-  opacity: 0.2;
-  transition: opacity 0.3s;
+  display: inline-flex;
+  color: #c7c7cc;
+  transition: color 0.3s;
 }
 
 .water-glass.filled {
-  opacity: 1;
+  color: #007aff;
 }
 
 .water-buttons {
@@ -354,6 +368,13 @@ body {
   font-size: 28px;
 }
 
+.symptom-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+}
+
 .symptom-name {
   font-size: 12px;
   font-weight: 500;
@@ -420,6 +441,12 @@ body {
   font-size: 36px;
 }
 
+.food-result-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .food-result-name {
   font-size: 20px;
   font-weight: 600;
@@ -439,6 +466,9 @@ body {
 }
 
 .food-ai-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   font-size: 12px;
   color: #8e8e93;
   margin-bottom: 8px;
@@ -475,7 +505,9 @@ body {
 }
 
 .photo-section-icon {
-  font-size: 28px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .photo-section-title {
@@ -503,6 +535,10 @@ body {
   border-radius: 12px;
   border: 2px dashed #d1d1d6;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .btn-photo:active {
@@ -553,6 +589,9 @@ body {
 }
 
 .photo-category-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   font-size: 13px;
   font-weight: 700;
   margin-bottom: 6px;
@@ -584,7 +623,7 @@ body {
 }
 
 .photo-assessment-icon {
-  font-size: 18px;
+  display: flex;
   flex-shrink: 0;
   margin-top: 1px;
 }
@@ -658,7 +697,9 @@ body {
 }
 
 .recipe-icon {
-  font-size: 28px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .recipe-title {
@@ -668,6 +709,9 @@ body {
 }
 
 .recipe-time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   font-size: 13px;
   color: #8e8e93;
   margin-top: 2px;
@@ -732,7 +776,13 @@ body {
   color: #3c3c43;
   line-height: 1.4;
   display: flex;
+  align-items: flex-start;
   gap: 6px;
+}
+
+.recipe-tip svg {
+  flex-shrink: 0;
+  margin-top: 1px;
 }
 
 /* === Wellbeing Tracker === */
@@ -752,6 +802,12 @@ body {
   margin-bottom: 8px;
   font-size: 15px;
   font-weight: 500;
+}
+
+.wellbeing-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .wellbeing-value {
@@ -936,6 +992,14 @@ body {
 
 .edu-emoji {
   font-size: 28px;
+}
+
+.edu-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  flex-shrink: 0;
 }
 
 .edu-title {
