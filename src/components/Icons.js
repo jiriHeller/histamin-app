@@ -405,6 +405,50 @@ export const IconDropletSmall = (props) => (
   </Icon>
 );
 
+// === Drink Icons ===
+
+export const IconCup = (props) => (
+  <Icon {...props}>
+    <path d="M17 8h1a4 4 0 0 1 0 8h-1" />
+    <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z" />
+    <line x1="6" y1="2" x2="6" y2="4" opacity="0.4" />
+    <line x1="10" y1="2" x2="10" y2="4" opacity="0.4" />
+    <line x1="14" y1="2" x2="14" y2="4" opacity="0.4" />
+  </Icon>
+);
+
+export const IconCoffee = (props) => (
+  <Icon {...props}>
+    <path d="M17 8h1a4 4 0 0 1 0 8h-1" />
+    <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z" />
+    <path d="M6 1v3" opacity="0.4" />
+    <path d="M10 1v3" opacity="0.4" />
+  </Icon>
+);
+
+export const IconGlass = (props) => (
+  <Icon {...props}>
+    <path d="M8 21h8" />
+    <path d="M12 17v4" />
+    <path d="M6 3h12l-1.5 14h-9L6 3z" />
+    <path d="M7 7h10" opacity="0.3" />
+  </Icon>
+);
+
+export const IconPlus = (props) => (
+  <Icon {...props}>
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </Icon>
+);
+
+export const IconTrash = (props) => (
+  <Icon {...props}>
+    <polyline points="3 6 5 6 21 6" />
+    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+  </Icon>
+);
+
 export const IconChevronLeft = (props) => (
   <Icon {...props}>
     <polyline points="15 18 9 12 15 6" />

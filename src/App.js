@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MedicationTracker from './components/MedicationTracker';
 import WaterTracker from './components/WaterTracker';
 import SymptomLogger from './components/SymptomLogger';
-import FoodChecker from './components/FoodChecker';
+import FoodAndDrinks from './components/FoodAndDrinks';
 import WellbeingTracker from './components/WellbeingTracker';
 import CalendarView from './components/CalendarView';
 import TreatmentTimeline from './components/TreatmentTimeline';
@@ -40,7 +40,7 @@ function App() {
       case 'symptoms':
         return <SymptomLogger />;
       case 'food':
-        return <FoodChecker />;
+        return <FoodAndDrinks />;
       case 'wellbeing':
         return <WellbeingTracker />;
       case 'calendar':
