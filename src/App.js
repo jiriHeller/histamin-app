@@ -1,31 +1,30 @@
 import React, { useState } from 'react';
 import MedicationTracker from './components/MedicationTracker';
-import WaterTracker from './components/WaterTracker';
 import SymptomLogger from './components/SymptomLogger';
 import FoodAndDrinks from './components/FoodAndDrinks';
 import WellbeingTracker from './components/WellbeingTracker';
 import CalendarView from './components/CalendarView';
-import TreatmentTimeline from './components/TreatmentTimeline';
 import EducationCards from './components/EducationCards';
+import ProfileAdmin from './components/ProfileAdmin';
 import {
   IconPill,
-  IconDroplet,
   IconGrid,
   IconUtensils,
   IconSmile,
   IconCalendar,
   IconBook,
+  IconUser,
 } from './components/Icons';
 import './App.css';
 
 const tabs = [
   { id: 'meds', label: 'Léky', Icon: IconPill },
-  { id: 'water', label: 'Voda', Icon: IconDroplet },
   { id: 'symptoms', label: 'Symptomy', Icon: IconGrid },
   { id: 'food', label: 'Jídlo', Icon: IconUtensils },
   { id: 'wellbeing', label: 'Pocit', Icon: IconSmile },
   { id: 'calendar', label: 'Deník', Icon: IconCalendar },
   { id: 'education', label: 'Info', Icon: IconBook },
+  { id: 'profile', label: 'Profil', Icon: IconUser },
 ];
 
 function App() {
@@ -35,8 +34,6 @@ function App() {
     switch (activeTab) {
       case 'meds':
         return <MedicationTracker />;
-      case 'water':
-        return <WaterTracker />;
       case 'symptoms':
         return <SymptomLogger />;
       case 'food':
@@ -47,6 +44,8 @@ function App() {
         return <CalendarView />;
       case 'education':
         return <EducationCards />;
+      case 'profile':
+        return <ProfileAdmin />;
       default:
         return <MedicationTracker />;
     }
