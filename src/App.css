@@ -1,38 +1,731 @@
-.App {
-  text-align: center;
+/* === Reset & Base === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI',
+    Roboto, sans-serif;
+  background-color: #f2f2f7;
+  color: #1c1c1e;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* === App Layout === */
+.app {
+  max-width: 430px;
+  margin: 0 auto;
   min-height: 100vh;
+  position: relative;
+}
+
+.content {
+  padding-bottom: 90px;
+}
+
+/* === Page === */
+.page {
+  padding: 16px;
+  padding-top: 60px;
+}
+
+.page-title {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.page-subtitle {
+  font-size: 15px;
+  color: #8e8e93;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 24px 0 12px;
+}
+
+/* === Cards === */
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* === Progress Bar === */
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.progress-label {
+  font-size: 15px;
+  color: #8e8e93;
+}
+
+.progress-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #007aff;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e5e5ea;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-lg {
+  height: 12px;
+  border-radius: 6px;
+  margin: 16px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #007aff, #5ac8fa);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+/* === Tab Bar === */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 0.5px solid #d1d1d6;
+  display: flex;
+  justify-content: space-around;
+  padding: 6px 0 calc(6px + env(safe-area-inset-bottom));
+  z-index: 100;
+}
+
+.tab-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  min-width: 0;
+  flex: 1;
+}
+
+.tab-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.tab-label {
+  font-size: 10px;
+  color: #8e8e93;
+  font-weight: 500;
+}
+
+.tab-item.active .tab-label {
+  color: #007aff;
+}
+
+/* === Medication Tracker === */
+.med-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  user-select: none;
+}
+
+.med-item:active {
+  opacity: 0.7;
+}
+
+.med-done {
+  opacity: 0.6;
+}
+
+.med-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.checkbox {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2.5px solid #d1d1d6;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.checkbox.checked {
+  background: #34c759;
+  border-color: #34c759;
+}
+
+.med-name {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.med-time {
+  font-size: 13px;
+  color: #8e8e93;
+  margin-top: 2px;
+}
+
+/* === Water Tracker === */
+.water-main {
+  text-align: center;
+  padding: 24px 16px;
+}
+
+.water-amount {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  color: #007aff;
+}
+
+.water-goal {
+  font-size: 15px;
+  color: #8e8e93;
+  margin-bottom: 8px;
+}
+
+.water-fill {
+  background: linear-gradient(90deg, #5ac8fa, #007aff);
+}
+
+.water-glasses {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.water-glass {
+  font-size: 24px;
+  opacity: 0.2;
+  transition: opacity 0.3s;
+}
+
+.water-glass.filled {
+  opacity: 1;
+}
+
+.water-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+/* === Buttons === */
+.btn {
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 12px 24px;
+  transition: all 0.2s;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: #007aff;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-primary:active {
+  background: #0056b3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.btn-water {
+  background: #e8f4fd;
+  color: #007aff;
+  font-size: 17px;
+  padding: 14px 28px;
+  border-radius: 14px;
+}
+
+.btn-water:active {
+  background: #d0e8fa;
+}
+
+.btn-text {
+  background: none;
+  color: #8e8e93;
+  font-size: 14px;
+  padding: 8px;
+}
+
+.btn-full {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* === Success Card === */
+.success-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #dcf8e8;
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.success-emoji {
+  font-size: 20px;
+}
+
+/* === Symptom Logger === */
+.symptom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.symptom-card {
+  padding: 12px;
+  cursor: pointer;
+}
+
+.symptom-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.symptom-toggle.active {
+  background: #e8f0fe;
+}
+
+.symptom-emoji {
+  font-size: 28px;
+}
+
+.symptom-name {
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  color: #3c3c43;
+}
+
+.intensity-slider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f2f2f7;
+}
+
+.intensity-slider input[type='range'] {
+  flex: 1;
+  accent-color: #ff9500;
+}
+
+.intensity-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #ff9500;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* === Food Checker === */
+.food-input-row {
+  display: flex;
+  gap: 10px;
+}
+
+.food-input {
+  flex: 1;
+  border: none;
+  background: #f2f2f7;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 16px;
+  outline: none;
+  font-family: inherit;
+}
+
+.food-input:focus {
+  background: #e8e8ed;
+}
+
+.food-result {
+  margin-top: 12px;
+  transition: background-color 0.3s;
+}
+
+.food-result-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.food-result-emoji {
+  font-size: 36px;
+}
+
+.food-result-name {
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.food-result-status {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.food-result-note {
+  font-size: 14px;
+  color: #3c3c43;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.food-ai-badge {
+  font-size: 12px;
+  color: #8e8e93;
+  margin-bottom: 8px;
+}
+
+.food-legend {
+  margin-top: 16px;
+}
+
+.food-legend h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.legend-item {
+  font-size: 14px;
+  color: #3c3c43;
+  margin-bottom: 6px;
+  display: flex;
+  gap: 8px;
+}
+
+/* === Wellbeing Tracker === */
+.wellbeing-item {
+  padding: 14px 0;
+  border-bottom: 1px solid #f2f2f7;
+}
+
+.wellbeing-item:last-of-type {
+  border-bottom: none;
+}
+
+.wellbeing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.wellbeing-value {
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.wellbeing-slider {
+  width: 100%;
+  height: 6px;
+}
+
+/* === History === */
+.history-card {
+  padding: 14px;
+}
+
+.history-date {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8e8e93;
+  margin-bottom: 10px;
+}
+
+.history-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.history-label {
+  font-size: 12px;
+  min-width: 110px;
+  white-space: nowrap;
+}
+
+.history-bar-container {
+  flex: 1;
+  height: 8px;
+  background: #f2f2f7;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.history-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+.history-val {
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: right;
+}
+
+/* === Treatment Timeline === */
+.timeline {
+  margin-top: 16px;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 14px;
+}
+
+.timeline-line-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+  flex-shrink: 0;
+}
+
+.timeline-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 18px;
+}
+
+.timeline-line {
+  width: 2px;
+  flex: 1;
+  background: #d1d1d6;
+}
+
+.timeline-card {
+  flex: 1;
+  cursor: pointer;
+}
+
+.timeline-card:active {
+  opacity: 0.8;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.timeline-phase {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.timeline-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 2px 0;
+}
+
+.timeline-weeks {
+  font-size: 13px;
+  color: #8e8e93;
+}
+
+.timeline-chevron {
+  font-size: 12px;
+  color: #8e8e93;
+  margin-top: 4px;
+}
+
+.timeline-detail {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #f2f2f7;
+}
+
+.timeline-section {
+  margin-bottom: 14px;
+}
+
+.timeline-section h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #3c3c43;
+}
+
+.timeline-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.timeline-section li {
+  font-size: 14px;
+  color: #3c3c43;
+  padding: 4px 0 4px 16px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.timeline-section li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #8e8e93;
+}
+
+/* === Education Cards === */
+.edu-card {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.edu-card:active {
+  opacity: 0.8;
+}
+
+.edu-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.edu-emoji {
+  font-size: 28px;
+}
+
+.edu-title {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.edu-chevron {
+  font-size: 12px;
+  color: #8e8e93;
+}
+
+.edu-content {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #f2f2f7;
+}
+
+.edu-content p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #3c3c43;
+  margin-bottom: 12px;
+}
+
+.edu-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* === Range Inputs (iOS-style) === */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  height: 6px;
+  background: #e5e5ea;
+  border-radius: 3px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  margin-top: -9px;
+}
+
+/* === Scrollbar === */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* === Safe area === */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .content {
+    padding-bottom: calc(90px + env(safe-area-inset-bottom));
   }
 }
