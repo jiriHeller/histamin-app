@@ -46,6 +46,10 @@ function ProfileAdmin() {
     return saved ? JSON.parse(saved) : defaultMedications.map(m => ({ ...m, note: '' }));
   });
   const [treatmentStart, setTreatmentStart] = useState(() => localStorage.getItem('treatment_start_date') || '');
+  const [bodyStats, setBodyStats] = useState(() => {
+    const saved = localStorage.getItem('body_stats');
+    return saved ? JSON.parse(saved) : { weight: '', height: '', fat: '', muscle: '', bone: '', bodyWater: '', goal: 'maintain', targetWeight: '' };
+  });
   const [editingMed, setEditingMed] = useState(null);
   const [newMed, setNewMed] = useState(null);
   const photoInputRef = useRef(null);
@@ -73,6 +77,14 @@ function ProfileAdmin() {
   const handleStartDateChange = useCallback((val) => {
     setTreatmentStart(val);
     localStorage.setItem('treatment_start_date', val);
+  }, []);
+
+  const updateBodyStat = useCallback((field, value) => {
+    setBodyStats(prev => {
+      const updated = { ...prev, [field]: value };
+      localStorage.setItem('body_stats', JSON.stringify(updated));
+      return updated;
+    });
   }, []);
 
   const handlePhotoSelect = useCallback(async (e) => {
@@ -189,6 +201,69 @@ function ProfileAdmin() {
             onChange={(e) => handleStartDateChange(e.target.value)}
           />
         </div>
+      </div>
+
+      {/* Body stats */}
+      <h2 className="section-title" style={{ padding: '0 16px' }}>Tělesné údaje</h2>
+      <div className="card">
+        <div className="body-stats-grid">
+          <div className="body-stat-field">
+            <label className="profile-label">Váha (kg)</label>
+            <input type="number" className="food-input" placeholder="75" value={bodyStats.weight} onChange={(e) => updateBodyStat('weight', e.target.value)} />
+          </div>
+          <div className="body-stat-field">
+            <label className="profile-label">Výška (cm)</label>
+            <input type="number" className="food-input" placeholder="175" value={bodyStats.height} onChange={(e) => updateBodyStat('height', e.target.value)} />
+          </div>
+        </div>
+
+        {bodyStats.weight && bodyStats.height && (
+          <div className="body-stat-bmi">
+            <span className="profile-label">BMI</span>
+            <span className="body-stat-bmi-value">
+              {(bodyStats.weight / ((bodyStats.height / 100) ** 2)).toFixed(1)}
+            </span>
+          </div>
+        )}
+
+        <div className="body-stats-grid">
+          <div className="body-stat-field">
+            <label className="profile-label">Tuk (%)</label>
+            <input type="number" className="food-input" placeholder="20" value={bodyStats.fat} onChange={(e) => updateBodyStat('fat', e.target.value)} />
+          </div>
+          <div className="body-stat-field">
+            <label className="profile-label">Svaly (%)</label>
+            <input type="number" className="food-input" placeholder="40" value={bodyStats.muscle} onChange={(e) => updateBodyStat('muscle', e.target.value)} />
+          </div>
+        </div>
+
+        <div className="body-stats-grid">
+          <div className="body-stat-field">
+            <label className="profile-label">Kosti (kg)</label>
+            <input type="number" className="food-input" placeholder="3.2" step="0.1" value={bodyStats.bone} onChange={(e) => updateBodyStat('bone', e.target.value)} />
+          </div>
+          <div className="body-stat-field">
+            <label className="profile-label">Voda v těle (%)</label>
+            <input type="number" className="food-input" placeholder="55" value={bodyStats.bodyWater} onChange={(e) => updateBodyStat('bodyWater', e.target.value)} />
+          </div>
+        </div>
+
+        <div className="body-stat-goal-section">
+          <label className="profile-label">Cíl</label>
+          <div className="food-tabs" style={{ marginTop: 6 }}>
+            {[['lose', 'Shodit'], ['maintain', 'Udržet'], ['gain', 'Přibrat']].map(([val, label]) => (
+              <button key={val} className={`food-tab ${bodyStats.goal === val ? 'active' : ''}`}
+                onClick={() => updateBodyStat('goal', val)}>{label}</button>
+            ))}
+          </div>
+        </div>
+
+        {bodyStats.goal !== 'maintain' && (
+          <div className="body-stat-field" style={{ marginTop: 10 }}>
+            <label className="profile-label">Cílová váha (kg)</label>
+            <input type="number" className="food-input" placeholder="70" value={bodyStats.targetWeight} onChange={(e) => updateBodyStat('targetWeight', e.target.value)} />
+          </div>
+        )}
       </div>
 
       {/* Medications editor */}

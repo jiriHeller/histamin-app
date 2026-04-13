@@ -1670,6 +1670,157 @@ input[type='range']::-webkit-slider-thumb {
   line-height: 1.4;
 }
 
+/* === Body Stats === */
+.body-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.body-stat-field label {
+  margin-bottom: 4px;
+}
+
+.body-stat-bmi {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f2f2f7;
+  margin-bottom: 10px;
+}
+
+.body-stat-bmi-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #007aff;
+}
+
+.body-stat-goal-section {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f2f2f7;
+}
+
+/* === Food Log === */
+.foodlog-meal-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #8e8e93;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.foodlog-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f2f2f7;
+}
+
+.foodlog-entry:last-child {
+  border-bottom: none;
+}
+
+.foodlog-food {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.foodlog-time {
+  font-size: 12px;
+  color: #8e8e93;
+}
+
+/* === Shopping List === */
+.shopping-needs {
+  padding: 16px;
+}
+
+.shopping-needs-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.shopping-needs-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.shopping-macros {
+  display: flex;
+  justify-content: space-around;
+}
+
+.shopping-macro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shopping-macro-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #007aff;
+}
+
+.shopping-macro-label {
+  font-size: 11px;
+  color: #8e8e93;
+}
+
+.shopping-cat-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #8e8e93;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.shopping-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f2f2f7;
+  cursor: pointer;
+}
+
+.shopping-item:last-of-type {
+  border-bottom: none;
+}
+
+.shopping-item.checked .shopping-item-name {
+  text-decoration: line-through;
+  color: #8e8e93;
+}
+
+.shopping-item-name {
+  flex: 1;
+  font-size: 15px;
+  text-transform: capitalize;
+}
+
+.shopping-item-amount {
+  font-size: 13px;
+  color: #8e8e93;
+  font-weight: 500;
+}
+
+.shopping-item-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+}
+
 /* === Profile / Admin === */
 .profile-login {
   text-align: center;

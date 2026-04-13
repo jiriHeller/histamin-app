@@ -5,7 +5,7 @@ import SymptomLogger from './components/SymptomLogger';
 import FoodAndDrinks from './components/FoodAndDrinks';
 import WellbeingTracker from './components/WellbeingTracker';
 import CalendarView from './components/CalendarView';
-import EducationCards from './components/EducationCards';
+import ShoppingList from './components/ShoppingList';
 import ProfileAdmin from './components/ProfileAdmin';
 import {
   IconHome,
@@ -14,7 +14,7 @@ import {
   IconUtensils,
   IconSmile,
   IconCalendar,
-  IconBook,
+  IconShoppingCart,
   IconUser,
 } from './components/Icons';
 import './App.css';
@@ -26,7 +26,7 @@ const tabs = [
   { id: 'food', label: 'Jídlo', Icon: IconUtensils },
   { id: 'wellbeing', label: 'Pocit', Icon: IconSmile },
   { id: 'calendar', label: 'Deník', Icon: IconCalendar },
-  { id: 'education', label: 'Info', Icon: IconBook },
+  { id: 'shopping', label: 'Nákup', Icon: IconShoppingCart },
   { id: 'profile', label: 'Profil', Icon: IconUser },
 ];
 
@@ -47,8 +47,8 @@ function App() {
         return <WellbeingTracker />;
       case 'calendar':
         return <CalendarView />;
-      case 'education':
-        return <EducationCards />;
+      case 'shopping':
+        return <ShoppingList />;
       case 'profile':
         return <ProfileAdmin />;
       default:
