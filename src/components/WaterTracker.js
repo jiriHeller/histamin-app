@@ -1,4 +1,6 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useEffect } from 'react';
+import { doc, setDoc, Timestamp } from 'firebase/firestore';
+import { db } from '../firebase';
 import useLocalStorage from '../hooks/useLocalStorage';
 import useDailyReset from '../hooks/useDailyReset';
 import { IconDropletSmall, IconCheckCircle } from './Icons';
@@ -17,6 +19,16 @@ function WaterTracker() {
 
   const progress = useMemo(() => Math.min((ml / GOAL) * 100, 100), [ml]);
   const glasses = useMemo(() => Math.floor(ml / 250), [ml]);
+
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    const ref = doc(db, 'dailyLog', today);
+    setDoc(ref, {
+      water: ml,
+      date: today,
+      timestamp: Timestamp.now(),
+    }, { merge: true }).catch(err => console.error('Error saving water:', err));
+  }, [ml]);
 
   return (
     <div className="page">

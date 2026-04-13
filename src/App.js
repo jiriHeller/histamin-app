@@ -4,6 +4,7 @@ import WaterTracker from './components/WaterTracker';
 import SymptomLogger from './components/SymptomLogger';
 import FoodChecker from './components/FoodChecker';
 import WellbeingTracker from './components/WellbeingTracker';
+import CalendarView from './components/CalendarView';
 import TreatmentTimeline from './components/TreatmentTimeline';
 import EducationCards from './components/EducationCards';
 import {
@@ -23,7 +24,7 @@ const tabs = [
   { id: 'symptoms', label: 'Symptomy', Icon: IconGrid },
   { id: 'food', label: 'Jídlo', Icon: IconUtensils },
   { id: 'wellbeing', label: 'Pocit', Icon: IconSmile },
-  { id: 'timeline', label: 'Plán', Icon: IconCalendar },
+  { id: 'calendar', label: 'Deník', Icon: IconCalendar },
   { id: 'education', label: 'Info', Icon: IconBook },
 ];
 
@@ -42,8 +43,8 @@ function App() {
         return <FoodChecker />;
       case 'wellbeing':
         return <WellbeingTracker />;
-      case 'timeline':
-        return <TreatmentTimeline />;
+      case 'calendar':
+        return <CalendarView />;
       case 'education':
         return <EducationCards />;
       default:

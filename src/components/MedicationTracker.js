@@ -1,4 +1,6 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useEffect } from 'react';
+import { doc, setDoc, Timestamp } from 'firebase/firestore';
+import { db } from '../firebase';
 import medications from '../data/medications';
 import useLocalStorage from '../hooks/useLocalStorage';
 import useDailyReset from '../hooks/useDailyReset';
@@ -39,6 +41,17 @@ function MedicationTracker() {
     [checked]
   );
   const progress = (count / medications.length) * 100;
+
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    const ref = doc(db, 'dailyLog', today);
+    setDoc(ref, {
+      medications: checked,
+      medicationCount: medications.filter((m) => checked[m.id]).length,
+      date: today,
+      timestamp: Timestamp.now(),
+    }, { merge: true }).catch(err => console.error('Error saving meds:', err));
+  }, [checked]);
 
   return (
     <div className="page">

@@ -404,3 +404,15 @@ export const IconDropletSmall = (props) => (
     <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
   </Icon>
 );
+
+export const IconChevronLeft = (props) => (
+  <Icon {...props}>
+    <polyline points="15 18 9 12 15 6" />
+  </Icon>
+);
+
+export const IconChevronRight = (props) => (
+  <Icon {...props}>
+    <polyline points="9 6 15 12 9 18" />
+  </Icon>
+);
