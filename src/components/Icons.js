@@ -449,6 +449,35 @@ export const IconTrash = (props) => (
   </Icon>
 );
 
+export const IconHome = (props) => (
+  <Icon {...props}>
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+    <polyline points="9 22 9 12 15 12 15 22" />
+  </Icon>
+);
+
+export const IconTrendingUp = (props) => (
+  <Icon {...props}>
+    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+    <polyline points="17 6 23 6 23 12" />
+  </Icon>
+);
+
+export const IconAward = (props) => (
+  <Icon {...props}>
+    <circle cx="12" cy="8" r="7" />
+    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+  </Icon>
+);
+
+export const IconTarget = (props) => (
+  <Icon {...props}>
+    <circle cx="12" cy="12" r="10" />
+    <circle cx="12" cy="12" r="6" opacity="0.4" />
+    <circle cx="12" cy="12" r="2" />
+  </Icon>
+);
+
 export const IconUser = (props) => (
   <Icon {...props}>
     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />

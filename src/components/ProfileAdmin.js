@@ -45,6 +45,7 @@ function ProfileAdmin() {
     const saved = localStorage.getItem('custom_medications');
     return saved ? JSON.parse(saved) : defaultMedications.map(m => ({ ...m, note: '' }));
   });
+  const [treatmentStart, setTreatmentStart] = useState(() => localStorage.getItem('treatment_start_date') || '');
   const [editingMed, setEditingMed] = useState(null);
   const [newMed, setNewMed] = useState(null);
   const photoInputRef = useRef(null);
@@ -67,6 +68,11 @@ function ProfileAdmin() {
   const handleNameChange = useCallback((val) => {
     setUserName(val);
     localStorage.setItem('user_name', val);
+  }, []);
+
+  const handleStartDateChange = useCallback((val) => {
+    setTreatmentStart(val);
+    localStorage.setItem('treatment_start_date', val);
   }, []);
 
   const handlePhotoSelect = useCallback(async (e) => {
@@ -171,6 +177,16 @@ function ProfileAdmin() {
             placeholder="Vaše jméno..."
             value={userName}
             onChange={(e) => handleNameChange(e.target.value)}
+          />
+        </div>
+
+        <div className="profile-name-section" style={{ marginTop: 12 }}>
+          <label className="profile-label">Datum zahájení léčby</label>
+          <input
+            type="date"
+            className="food-input"
+            value={treatmentStart}
+            onChange={(e) => handleStartDateChange(e.target.value)}
           />
         </div>
       </div>

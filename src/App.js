@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Dashboard from './components/Dashboard';
 import MedicationTracker from './components/MedicationTracker';
 import SymptomLogger from './components/SymptomLogger';
 import FoodAndDrinks from './components/FoodAndDrinks';
@@ -7,6 +8,7 @@ import CalendarView from './components/CalendarView';
 import EducationCards from './components/EducationCards';
 import ProfileAdmin from './components/ProfileAdmin';
 import {
+  IconHome,
   IconPill,
   IconGrid,
   IconUtensils,
@@ -18,6 +20,7 @@ import {
 import './App.css';
 
 const tabs = [
+  { id: 'dashboard', label: 'Domů', Icon: IconHome },
   { id: 'meds', label: 'Léky', Icon: IconPill },
   { id: 'symptoms', label: 'Symptomy', Icon: IconGrid },
   { id: 'food', label: 'Jídlo', Icon: IconUtensils },
@@ -28,10 +31,12 @@ const tabs = [
 ];
 
 function App() {
-  const [activeTab, setActiveTab] = useState('meds');
+  const [activeTab, setActiveTab] = useState('dashboard');
 
   const renderTab = () => {
     switch (activeTab) {
+      case 'dashboard':
+        return <Dashboard />;
       case 'meds':
         return <MedicationTracker />;
       case 'symptoms':
