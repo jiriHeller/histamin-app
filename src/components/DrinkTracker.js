@@ -13,7 +13,6 @@ import {
   IconPlus,
   IconTrash,
   IconCamera,
-  IconCpu,
 } from './Icons';
 
 const categoryIconMap = {
