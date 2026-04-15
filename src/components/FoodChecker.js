@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import foods from '../data/foods';
+import HIT_CONTEXT from '../data/hitContext';
 import {
   IconCheckCircle,
   IconAlertCircle,
@@ -10,6 +11,11 @@ import {
   IconClock,
   IconLightbulb,
 } from './Icons';
+
+// Normalize Czech diacritics for fuzzy matching
+function normalize(s) {
+  return s.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
 
 const statusConfig = {
   safe: {
@@ -97,14 +103,25 @@ function FoodChecker() {
     const q = query.trim().toLowerCase();
     if (!q) return;
 
+    // Exact match
     if (foods[q]) {
       setResult({ ...foods[q], name: query.trim() });
       return;
     }
 
-    const partial = Object.entries(foods).find(
-      ([key]) => key.includes(q) || q.includes(key)
-    );
+    // Diacritics-insensitive match
+    const qNorm = normalize(q);
+    const diacriticMatch = Object.entries(foods).find(([key]) => normalize(key) === qNorm);
+    if (diacriticMatch) {
+      setResult({ ...diacriticMatch[1], name: query.trim() });
+      return;
+    }
+
+    // Partial match (both with normalization)
+    const partial = Object.entries(foods).find(([key]) => {
+      const kNorm = normalize(key);
+      return kNorm.includes(qNorm) || qNorm.includes(kNorm);
+    });
     if (partial) {
       setResult({ ...partial[1], name: query.trim() });
       return;
@@ -132,11 +149,12 @@ function FoodChecker() {
         },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
-          max_tokens: 200,
+          max_tokens: 300,
+          system: HIT_CONTEXT,
           messages: [
             {
               role: 'user',
-              content: `Je "${query.trim()}" bezpečné pro osobu s histaminovou intolerancí? Odpověz POUZE v tomto JSON formátu, nic jiného: {"status": "safe"|"caution"|"unsafe", "note": "krátké vysvětlení česky"}`,
+              content: `Posuď potravinu: "${query.trim()}"\n\nOdpověz POUZE v JSON: {"status":"safe"|"caution"|"unsafe","note":"stručné vysvětlení česky max 20 slov"}`,
             },
           ],
         }),
@@ -206,6 +224,7 @@ function FoodChecker() {
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 1024,
+          system: HIT_CONTEXT,
           messages: [
             {
               role: 'user',
@@ -220,16 +239,16 @@ function FoodChecker() {
                 },
                 {
                   type: 'text',
-                  text: `Podívej se na tuto fotku jídla. Identifikuj VŠECHNY potraviny a ingredience, které vidíš. Každou potravinu zařaď podle vhodnosti pro osobu s histaminovou intolerancí.
+                  text: `Identifikuj VŠECHNY potraviny a ingredience na fotce. Klasifikuj podle HIT pravidel definovaných v systémovém kontextu.
 
-Odpověz POUZE v tomto JSON formátu, nic jiného:
-{"ok":["potravina1","potravina2"],"pozor":["potravina3"],"ne":["potravina4"],"zhodnoceni":"Krátké celkové zhodnocení jídla česky, 1-2 věty."}
+Odpověz POUZE v JSON:
+{"ok":["potravina1","potravina2"],"pozor":["potravina3"],"ne":["potravina4"],"zhodnoceni":"Krátké zhodnocení česky, 1-2 věty."}
 
-ok = bezpečné pro HIT
-pozor = záleží na toleranci, opatrně
-ne = nevhodné, vysoký histamin
+ok = safe (bezpečné)
+pozor = caution (liberátor, střední, opatrnost)
+ne = unsafe (fermentované, uzené, zrané, vysoký histamin)
 
-Odpověz česky.`,
+BUĎ KONZISTENTNÍ — stejné potraviny vždy stejný status. Např. avokádo = pozor (liberátor), čerstvé kuřecí = ok, zralý sýr = ne.`,
                 },
               ],
             },
@@ -280,15 +299,16 @@ Odpověz česky.`,
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 1024,
+          system: HIT_CONTEXT,
           messages: [
             {
               role: 'user',
-              content: `Napiš jednoduchý recept vhodný pro osobu s histaminovou intolerancí. Použij tyto bezpečné ingredience: ${okFoods.join(', ')}. Můžeš přidat i další bezpečné ingredience (rýže, brambory, olivový olej, sůl, čerstvé bylinky apod.).
+              content: `Navrhni jednoduchý recept pouze z HIT-bezpečných surovin. Máš k dispozici: ${okFoods.join(', ')}. Můžeš přidat bezpečné suroviny (rýže, brambory, olivový olej, kurkuma, čerstvé bylinky).
 
-Odpověz POUZE v tomto JSON formátu:
-{"nazev":"Název receptu","ingredience":["ingredience 1","ingredience 2"],"postup":["krok 1","krok 2","krok 3"],"cas":"XX minut","tip":"Krátký tip pro HIT pacienty"}
+VYHNI SE: ocet, citron, fermentované, zrané sýry, uzeniny, hotovky.
 
-Odpověz česky.`,
+Odpověz POUZE v JSON:
+{"nazev":"Název","ingredience":["..."],"postup":["krok 1","krok 2"],"cas":"XX minut","tip":"Tip pro HIT"}`,
             },
           ],
         }),
@@ -351,9 +371,13 @@ Odpověz česky.`,
               </div>
             </div>
             <p className="food-result-note">{result.note}</p>
-            {result.ai && (
+            {result.ai ? (
               <div className="food-ai-badge">
-                <IconCpu size={14} stroke="#8e8e93" /> Odpověď od AI
+                <IconCpu size={14} stroke="#8e8e93" /> Odpověď od AI (HIT pravidla)
+              </div>
+            ) : (
+              <div className="food-ai-badge">
+                <IconCheckCircle size={14} stroke="#34c759" /> Z ověřené databáze
               </div>
             )}
             <button className="btn btn-text" onClick={clear}>

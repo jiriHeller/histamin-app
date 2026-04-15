@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { doc, setDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import { drinks, drinkCategories } from '../data/drinks';
+import HIT_CONTEXT from '../data/hitContext';
 import {
   IconDroplet,
   IconCup,
@@ -122,11 +123,12 @@ function DrinkTracker() {
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 512,
+          system: HIT_CONTEXT,
           messages: [{
             role: 'user',
             content: [
               { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: base64 } },
-              { type: 'text', text: `Podívej se na fotku nápoje. Identifikuj nápoj a zhodnoť jeho vhodnost pro osobu s histaminovou intolerancí.\n\nOdpověz POUZE v JSON: {"nazev":"název nápoje","status":"safe"|"caution"|"unsafe","note":"krátké vysvětlení česky","objem":odhadnutý objem v ml}\n\nOdpověz česky.` },
+              { type: 'text', text: `Identifikuj nápoj na fotce a klasifikuj podle HIT pravidel.\n\nOdpověz POUZE v JSON: {"nazev":"název","status":"safe"|"caution"|"unsafe","note":"stručně česky","objem":odhadnutý_objem_v_ml}\n\nPoznámky:\n- Voda, minerálka, čaj z bezpečných bylin = safe\n- Káva, černý/zelený čaj = caution (blokuje DAO)\n- Citrusové džusy = caution (liberátor)\n- Alkohol, kombucha, fermentované = unsafe` },
             ],
           }],
         }),
