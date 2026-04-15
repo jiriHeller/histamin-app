@@ -28,7 +28,7 @@ const iconMap = {
 
 const initialState = {};
 
-function MedicationTracker() {
+function MedicationTracker({ embedded = false }) {
   const [medications, setMedications] = useState(() => {
     const saved = localStorage.getItem('custom_medications');
     return saved ? JSON.parse(saved) : defaultMedications;
@@ -77,10 +77,8 @@ function MedicationTracker() {
     }, { merge: true }).catch(err => console.error('Error saving meds:', err));
   }, [checked, medications]);
 
-  return (
-    <div className="page">
-      <h1 className="page-title">Léky a doplňky</h1>
-
+  const content = (
+    <>
       <div className="card">
         <div className="progress-header">
           <span className="progress-label">Dnešní pokrok</span>
@@ -120,6 +118,15 @@ function MedicationTracker() {
           );
         })}
       </div>
+    </>
+  );
+
+  if (embedded) return content;
+
+  return (
+    <div className="page">
+      <h1 className="page-title">Léky a doplňky</h1>
+      {content}
     </div>
   );
 }

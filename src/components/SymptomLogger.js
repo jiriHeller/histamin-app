@@ -35,7 +35,7 @@ const iconMap = {
   dropletOff: IconDropletOff,
 };
 
-function SymptomLogger() {
+function SymptomLogger({ embedded = false }) {
   const [selected, setSelected] = useState({});
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -81,10 +81,8 @@ function SymptomLogger() {
 
   const intensityLabels = ['', 'Mírné', 'Střední', 'Silné'];
 
-  return (
-    <div className="page">
-      <h1 className="page-title">Symptomy</h1>
-
+  const content = (
+    <>
       {saved && (
         <div className="card success-card">
           <span className="success-emoji">
@@ -145,6 +143,15 @@ function SymptomLogger() {
           {saving ? 'Ukládám...' : 'Uložit symptomy'}
         </button>
       )}
+    </>
+  );
+
+  if (embedded) return content;
+
+  return (
+    <div className="page">
+      <h1 className="page-title">Symptomy</h1>
+      {content}
     </div>
   );
 }

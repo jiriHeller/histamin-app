@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
 import Dashboard from './components/Dashboard';
-import MedicationTracker from './components/MedicationTracker';
-import SymptomLogger from './components/SymptomLogger';
 import FoodAndDrinks from './components/FoodAndDrinks';
-import WellbeingTracker from './components/WellbeingTracker';
 import CalendarView from './components/CalendarView';
 import ShoppingList from './components/ShoppingList';
 import ProfileAdmin from './components/ProfileAdmin';
 import {
   IconHome,
-  IconPill,
-  IconGrid,
   IconUtensils,
-  IconSmile,
   IconCalendar,
   IconShoppingCart,
   IconUser,
@@ -21,10 +15,7 @@ import './App.css';
 
 const tabs = [
   { id: 'dashboard', label: 'Domů', Icon: IconHome },
-  { id: 'meds', label: 'Léky', Icon: IconPill },
-  { id: 'symptoms', label: 'Symptomy', Icon: IconGrid },
   { id: 'food', label: 'Jídlo', Icon: IconUtensils },
-  { id: 'wellbeing', label: 'Pocit', Icon: IconSmile },
   { id: 'calendar', label: 'Deník', Icon: IconCalendar },
   { id: 'shopping', label: 'Nákup', Icon: IconShoppingCart },
   { id: 'profile', label: 'Profil', Icon: IconUser },
@@ -37,14 +28,8 @@ function App() {
     switch (activeTab) {
       case 'dashboard':
         return <Dashboard />;
-      case 'meds':
-        return <MedicationTracker />;
-      case 'symptoms':
-        return <SymptomLogger />;
       case 'food':
         return <FoodAndDrinks />;
-      case 'wellbeing':
-        return <WellbeingTracker />;
       case 'calendar':
         return <CalendarView />;
       case 'shopping':
@@ -52,7 +37,7 @@ function App() {
       case 'profile':
         return <ProfileAdmin />;
       default:
-        return <MedicationTracker />;
+        return <Dashboard />;
     }
   };
 

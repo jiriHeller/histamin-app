@@ -50,7 +50,7 @@ const categories = [
   { id: 'hlava', name: 'Hlava a zrak', Icon: IconBrain },
 ];
 
-function WellbeingTracker() {
+function WellbeingTracker({ embedded = false }) {
   const [values, setValues] = useState(
     Object.fromEntries(categories.map((c) => [c.id, 5]))
   );
@@ -117,10 +117,8 @@ function WellbeingTracker() {
     return '#34c759';
   };
 
-  return (
-    <div className="page">
-      <h1 className="page-title">Jak se cítím</h1>
-
+  const content = (
+    <>
       {saved && (
         <div className="card success-card">
           <span className="success-emoji">
@@ -247,6 +245,15 @@ function WellbeingTracker() {
           ))}
         </>
       )}
+    </>
+  );
+
+  if (embedded) return content;
+
+  return (
+    <div className="page">
+      <h1 className="page-title">Jak se cítím</h1>
+      {content}
     </div>
   );
 }

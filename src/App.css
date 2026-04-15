@@ -1481,6 +1481,72 @@ input[type='range']::-webkit-slider-thumb {
   text-align: right;
 }
 
+/* === Dashboard Collapsible Sections === */
+.dash-section {
+  background: #ffffff;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.dash-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.dash-section-header:active {
+  background: #f8f8fb;
+}
+
+.dash-section-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dash-section-title {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1c1c1e;
+  letter-spacing: -0.2px;
+}
+
+.dash-section-count {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8e8e93;
+  margin-right: 4px;
+}
+
+.dash-section-chevron {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.dash-section-chevron.open {
+  transform: rotate(180deg);
+}
+
+.dash-section-body {
+  padding: 0 12px 12px;
+  border-top: 1px solid #f2f2f7;
+  animation: tipSlide 0.25s ease;
+}
+
+.dash-section-body .card {
+  margin-top: 10px;
+}
+
 /* === Daily Tip === */
 .daily-tip-card {
   background: linear-gradient(135deg, #f0faf3 0%, #e8f5ed 100%);

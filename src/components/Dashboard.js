@@ -11,6 +11,9 @@ import { db } from '../firebase';
 import timeline from '../data/timeline';
 import defaultMedications from '../data/medications';
 import DailyTip from './DailyTip';
+import MedicationTracker from './MedicationTracker';
+import SymptomLogger from './SymptomLogger';
+import WellbeingTracker from './WellbeingTracker';
 import {
   IconAward,
   IconTarget,
@@ -19,7 +22,27 @@ import {
   IconDroplet,
   IconGrid,
   IconSmile,
+  IconChevronDown,
 } from './Icons';
+
+function CollapsibleSection({ title, Icon, color, children, defaultOpen = false, count }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className={`dash-section ${open ? 'open' : ''}`}>
+      <div className="dash-section-header" onClick={() => setOpen(!open)}>
+        <div className="dash-section-icon-wrap" style={{ background: color + '15' }}>
+          <Icon size={20} stroke={color} />
+        </div>
+        <span className="dash-section-title">{title}</span>
+        {count && <span className="dash-section-count">{count}</span>}
+        <div className={`dash-section-chevron ${open ? 'open' : ''}`}>
+          <IconChevronDown size={18} stroke="#8e8e93" />
+        </div>
+      </div>
+      {open && <div className="dash-section-body">{children}</div>}
+    </div>
+  );
+}
 
 function getPhaseInfo(startDate) {
   if (!startDate) return { phase: null, daysSinceStart: 0, daysInPhase: 0, daysToNext: 0, weekNumber: 0 };
@@ -208,6 +231,34 @@ function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* Integrované sekce: Léky / Symptomy / Pocit */}
+      <CollapsibleSection
+        title="Léky a doplňky"
+        Icon={IconPill}
+        color="#007aff"
+        count={`${todayData.meds}/${todayData.medsTotal}`}
+      >
+        <MedicationTracker embedded />
+      </CollapsibleSection>
+
+      <CollapsibleSection
+        title="Symptomy"
+        Icon={IconGrid}
+        color="#ff9500"
+        count={todayData.symptoms > 0 ? `${todayData.symptoms}x` : null}
+      >
+        <SymptomLogger embedded />
+      </CollapsibleSection>
+
+      <CollapsibleSection
+        title="Jak se cítím"
+        Icon={IconSmile}
+        color="#34c759"
+        count={todayData.wellbeing > 0 ? `${todayData.wellbeing}/10` : null}
+      >
+        <WellbeingTracker embedded />
+      </CollapsibleSection>
 
       {/* Treatment Phase */}
       {phaseInfo.phase ? (
