@@ -29,8 +29,10 @@ body {
 
 /* === Page === */
 .page {
-  padding: 16px;
-  padding-top: 60px;
+  padding-left: calc(16px + env(safe-area-inset-left));
+  padding-right: calc(16px + env(safe-area-inset-right));
+  padding-top: calc(60px + env(safe-area-inset-top));
+  padding-bottom: 16px;
 }
 
 .page-title {
@@ -121,8 +123,12 @@ body {
   border-top: 0.5px solid #d1d1d6;
   display: flex;
   justify-content: space-around;
-  padding: 6px 0 calc(6px + env(safe-area-inset-bottom));
+  padding-top: 6px;
+  padding-bottom: calc(6px + env(safe-area-inset-bottom));
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
   z-index: 100;
+  box-sizing: border-box;
 }
 
 .tab-item {
@@ -1057,8 +1063,10 @@ input[type='range']::-webkit-slider-thumb {
 
 /* === Food/Drinks Tabs === */
 .food-tabs-wrapper {
-  padding: 16px 16px 0;
-  padding-top: 60px;
+  padding-top: calc(60px + env(safe-area-inset-top));
+  padding-left: calc(16px + env(safe-area-inset-left));
+  padding-right: calc(16px + env(safe-area-inset-right));
+  padding-bottom: 0;
 }
 
 .food-tabs {
