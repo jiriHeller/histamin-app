@@ -1473,6 +1473,197 @@ input[type='range']::-webkit-slider-thumb {
   text-align: right;
 }
 
+/* === Daily Tip === */
+.daily-tip-card {
+  background: linear-gradient(135deg, #f0faf3 0%, #e8f5ed 100%);
+  border: 1px solid #d4e9dc;
+  padding: 0;
+  overflow: hidden;
+}
+
+.daily-tip-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.daily-tip-header:active {
+  background: rgba(52, 199, 89, 0.08);
+}
+
+.daily-tip-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.daily-tip-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.daily-tip-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #34c759;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 2px;
+}
+
+.daily-tip-name {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1c1c1e;
+  letter-spacing: -0.2px;
+}
+
+.daily-tip-benefit {
+  font-size: 13px;
+  color: #6e6e73;
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+.daily-tip-chevron {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.daily-tip-chevron.expanded {
+  transform: rotate(180deg);
+}
+
+.daily-tip-body {
+  padding: 0 16px 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.6);
+  animation: tipSlide 0.25s ease;
+}
+
+@keyframes tipSlide {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.daily-tip-description {
+  font-size: 14px;
+  color: #3c3c43;
+  line-height: 1.55;
+  padding: 14px 0;
+}
+
+.daily-tip-recipe {
+  padding: 14px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.daily-tip-recipe-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1c1c1e;
+  margin-bottom: 12px;
+  letter-spacing: -0.1px;
+}
+
+.daily-tip-section {
+  margin-bottom: 12px;
+}
+
+.daily-tip-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #34c759;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 6px;
+}
+
+.daily-tip-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.daily-tip-list li {
+  font-size: 14px;
+  color: #3c3c43;
+  padding: 3px 0 3px 14px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.daily-tip-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #34c759;
+  font-weight: 700;
+}
+
+.daily-tip-steps {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.daily-tip-steps li {
+  font-size: 14px;
+  color: #3c3c43;
+  padding: 3px 0;
+  line-height: 1.5;
+}
+
+.daily-tip-steps li::marker {
+  color: #34c759;
+  font-weight: 600;
+}
+
+.daily-tip-note {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 149, 0, 0.08);
+  border-radius: 10px;
+  font-size: 13px;
+  color: #3c3c43;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.daily-tip-note svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.daily-tip-warning {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 59, 48, 0.08);
+  border-radius: 10px;
+  font-size: 13px;
+  color: #ff3b30;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.daily-tip-warning svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
 /* === Dashboard === */
 .dash-greeting {
   display: flex;

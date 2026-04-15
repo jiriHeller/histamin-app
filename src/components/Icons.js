@@ -449,6 +449,111 @@ export const IconTrash = (props) => (
   </Icon>
 );
 
+// === Herb/Ingredient Icons ===
+
+export const IconClove = (props) => (
+  <Icon {...props}>
+    <path d="M12 2c-1 2-2 3-2 5 0 2 1 3 2 4 1-1 2-2 2-4 0-2-1-3-2-5z" />
+    <path d="M12 11v11" />
+    <path d="M10 14h4" opacity="0.4" />
+    <path d="M9 18h6" opacity="0.4" />
+  </Icon>
+);
+
+export const IconGinger = (props) => (
+  <Icon {...props}>
+    <path d="M7 8c-2 0-3 1-3 3s2 3 4 2 3-3 5-3 3 2 5 1 2-3 1-4-3-1-4 0-3 2-5 1-2-1-3 0z" />
+    <path d="M6 14c0 3 2 6 6 6s6-3 6-6" opacity="0.5" />
+  </Icon>
+);
+
+export const IconOnion = (props) => (
+  <Icon {...props}>
+    <path d="M12 3c-4 0-7 4-7 9s3 9 7 9 7-4 7-9-3-9-7-9z" />
+    <path d="M12 3c-1 2-1 5 0 9s1 7 0 9" opacity="0.4" />
+    <path d="M10 3l2-2 2 2" />
+  </Icon>
+);
+
+export const IconTurmeric = (props) => (
+  <Icon {...props}>
+    <path d="M4 14c0-4 3-7 8-7s8 3 8 7-3 5-8 5-8-1-8-5z" />
+    <circle cx="9" cy="13" r="1" opacity="0.4" />
+    <circle cx="15" cy="13" r="1" opacity="0.4" />
+    <circle cx="12" cy="16" r="1" opacity="0.4" />
+  </Icon>
+);
+
+export const IconNettle = (props) => (
+  <Icon {...props}>
+    <path d="M12 22V10" />
+    <path d="M12 10l-3-5 3 2 3-2-3 5z" />
+    <path d="M12 14l-4-2 1 3 3-1z" opacity="0.6" />
+    <path d="M12 14l4-2-1 3-3-1z" opacity="0.6" />
+    <path d="M12 18l-3-1 1 2 2-1z" opacity="0.4" />
+    <path d="M12 18l3-1-1 2-2-1z" opacity="0.4" />
+  </Icon>
+);
+
+export const IconFennel = (props) => (
+  <Icon {...props}>
+    <path d="M12 22V12" />
+    <path d="M12 12c-3-4-5-6-5-8 0-1 1-2 2-1s3 5 3 9z" />
+    <path d="M12 12c3-4 5-6 5-8 0-1-1-2-2-1s-3 5-3 9z" />
+    <path d="M10 20h4" opacity="0.4" />
+  </Icon>
+);
+
+export const IconChamomile = (props) => (
+  <Icon {...props}>
+    <circle cx="12" cy="12" r="2" />
+    <ellipse cx="12" cy="5" rx="2" ry="4" opacity="0.6" />
+    <ellipse cx="12" cy="19" rx="2" ry="4" opacity="0.6" />
+    <ellipse cx="5" cy="12" rx="4" ry="2" opacity="0.6" />
+    <ellipse cx="19" cy="12" rx="4" ry="2" opacity="0.6" />
+    <ellipse cx="7" cy="7" rx="2.5" ry="2.5" opacity="0.4" transform="rotate(-45 7 7)" />
+    <ellipse cx="17" cy="7" rx="2.5" ry="2.5" opacity="0.4" transform="rotate(45 17 7)" />
+    <ellipse cx="7" cy="17" rx="2.5" ry="2.5" opacity="0.4" transform="rotate(45 7 17)" />
+    <ellipse cx="17" cy="17" rx="2.5" ry="2.5" opacity="0.4" transform="rotate(-45 17 17)" />
+  </Icon>
+);
+
+export const IconCoconut = (props) => (
+  <Icon {...props}>
+    <circle cx="12" cy="12" r="9" />
+    <circle cx="9" cy="10" r="1" />
+    <circle cx="15" cy="10" r="1" />
+    <path d="M9 14c1 1 2 2 3 2s2-1 3-2" opacity="0.4" />
+    <path d="M12 3c-2 2-4 5-4 9" opacity="0.3" />
+  </Icon>
+);
+
+export const IconGarlic = (props) => (
+  <Icon {...props}>
+    <path d="M12 4c-3 2-5 5-5 9 0 4 2 7 5 7s5-3 5-7c0-4-2-7-5-9z" />
+    <path d="M12 4v16" opacity="0.3" />
+    <path d="M9 8c1-1 2-2 3-2s2 1 3 2" opacity="0.4" />
+    <path d="M12 3c0-1 1-1 1-1s-1 1-1 2z" />
+  </Icon>
+);
+
+export const IconOregano = (props) => (
+  <Icon {...props}>
+    <path d="M12 22V6" />
+    <ellipse cx="10" cy="9" rx="2" ry="3" opacity="0.6" transform="rotate(-30 10 9)" />
+    <ellipse cx="14" cy="9" rx="2" ry="3" opacity="0.6" transform="rotate(30 14 9)" />
+    <ellipse cx="10" cy="14" rx="2" ry="3" opacity="0.5" transform="rotate(-30 10 14)" />
+    <ellipse cx="14" cy="14" rx="2" ry="3" opacity="0.5" transform="rotate(30 14 14)" />
+    <circle cx="12" cy="4" r="1.5" />
+  </Icon>
+);
+
+export const IconChevronDown = (props) => (
+  <Icon {...props}>
+    <polyline points="6 9 12 15 18 9" />
+  </Icon>
+);
+
 export const IconShoppingCart = (props) => (
   <Icon {...props}>
     <circle cx="9" cy="21" r="1" />

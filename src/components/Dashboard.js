@@ -10,6 +10,7 @@ import {
 import { db } from '../firebase';
 import timeline from '../data/timeline';
 import defaultMedications from '../data/medications';
+import DailyTip from './DailyTip';
 import {
   IconAward,
   IconTarget,
@@ -172,6 +173,9 @@ function Dashboard() {
           </p>
         </div>
       </div>
+
+      {/* Daily Tip */}
+      <DailyTip />
 
       {/* Daily Score Circle */}
       <div className="card dash-score-card">
